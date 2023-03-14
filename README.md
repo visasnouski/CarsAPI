@@ -7,4 +7,4 @@
 5. Register User.
 6. Login.
 7. Copy JWT Token from response
-8. Add string "Bearer <JWT token>" in Authorization
+8. Add string "Bearer <JWT token>" in Authorize
