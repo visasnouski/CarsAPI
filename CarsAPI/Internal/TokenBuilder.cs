@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 namespace CarsAPI.Internal
 {
 	internal class TokenBuilder : ITokenBuilder
-
 	{
 		private readonly IDateTimeFacade _dateTimeFacade;
 

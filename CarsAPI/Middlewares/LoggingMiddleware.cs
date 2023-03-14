@@ -1,4 +1,4 @@
-﻿namespace CarsAPI.Middleware
+﻿namespace CarsAPI.Middlewares
 {
 	public class LoggingMiddleware
 	{

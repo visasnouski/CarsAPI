@@ -1,5 +1,5 @@
 ﻿using CarsAPI.Interfaces;
-using CarsAPI.Model;
+using CarsAPI.Models;
 using CarsAPI.Options;
 using DataAccess.Data;
 using DataAccess.Models;

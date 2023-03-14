@@ -1,6 +1,6 @@
 ﻿using CarsAPI.Controllers;
 using CarsAPI.Interfaces;
-using CarsAPI.Model;
+using CarsAPI.Models;
 using CarsAPI.Options;
 using CarsAPI.Tests.Extensions;
 using DataAccess.Data;

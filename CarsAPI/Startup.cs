@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using CarsAPI.Interfaces;
 using CarsAPI.Internal;
-using CarsAPI.Middleware;
+using CarsAPI.Middlewares;
 using CarsAPI.Options;
 using DataAccess.Data;
 using DataAccess.DbAccess;
@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Swashbuckle.AspNetCore.Filters;
-using ExceptionHandlerMiddleware = CarsAPI.Middleware.ExceptionHandlerMiddleware;
+using ExceptionHandlerMiddleware = CarsAPI.Middlewares.ExceptionHandlerMiddleware;
 
 namespace CarsAPI
 {
