@@ -82,24 +82,25 @@ namespace CarsAPI
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-            app.UseMiddleware<ExceptionHandlerMiddleware>();
+			app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 			if (env.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            app.UseRouting();
+			{
+				app.UseSwagger();
+				app.UseSwaggerUI();
+			}
+
+			app.UseRouting();
 			app.UseHttpsRedirection();
-            app.UseAuthentication();
-            app.UseAuthorization();
+			app.UseAuthentication();
+			app.UseAuthorization();
 
-            app.UseMiddleware<LoggingMiddleware>();
+			app.UseMiddleware<LoggingMiddleware>();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+			});
+		}
 	}
 }
