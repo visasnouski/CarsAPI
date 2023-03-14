@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarsAPI.Internal
 {
-	public class PasswordManager : IPasswordManager
+	internal class PasswordManager : IPasswordManager
 	{
 		public (byte[] passwordHash, byte[] passwordSalt) GeneratePasswordHashAndSalt(string password)
 		{

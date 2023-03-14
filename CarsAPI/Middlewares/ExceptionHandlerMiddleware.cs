@@ -1,18 +1,20 @@
 ﻿using System.Net;
 using System.Text.Json;
-using CarsAPI.Model;
+using CarsAPI.Models;
 
-namespace CarsAPI.Middleware
+namespace CarsAPI.Middlewares
 {
 	public class ExceptionHandlerMiddleware
 	{
 		private readonly RequestDelegate _next;
 		private readonly ILogger<ExceptionHandlerMiddleware> _logger;
+
 		public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
 		{
 			_logger = logger;
 			_next = next;
 		}
+
 		public async Task InvokeAsync(HttpContext httpContext)
 		{
 			try
@@ -21,10 +23,11 @@ namespace CarsAPI.Middleware
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError($"Something went wrong: {ex}");
+				_logger.LogError($"An error occurred while executing the request: {ex}");
 				await HandleExceptionAsync(httpContext, ex);
 			}
 		}
+
 		private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
 		{
 			context.Response.ContentType = "application/json";

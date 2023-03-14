@@ -2,7 +2,7 @@
 
 namespace CarsAPI.Internal
 {
-	public class DateTimeFacade : IDateTimeFacade
+	internal class DateTimeFacade : IDateTimeFacade
 	{
 		public DateTime CurrentDateTime => DateTime.Now;
 	}
