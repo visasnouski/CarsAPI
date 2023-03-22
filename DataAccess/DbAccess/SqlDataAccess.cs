@@ -15,16 +15,18 @@ namespace DataAccess.DbAccess
 			_dbConnectionSettings = dbSettings.Value ?? throw new ArgumentNullException(nameof(dbSettings));
 		}
 
-		public async Task<IEnumerable<T>> LoadData<T, TU>(string storedProcedure, TU parameters)
+		public async Task<IEnumerable<T>> LoadData<T, TU>(string storedProcedure, TU parameters, CancellationToken cancellationToken)
 		{
 			using IDbConnection connection = new SqlConnection(_dbConnectionSettings.DefaultConnection);
-			return await connection.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+			var commandDefinition = new CommandDefinition(storedProcedure, parameters, commandType: CommandType.StoredProcedure, cancellationToken: cancellationToken);
+			return await connection.QueryAsync<T>(commandDefinition);
 		}
 
-		public async Task SaveData<T>(string storedProcedure, T parameters)
+		public async Task SaveData<T>(string storedProcedure, T parameters, CancellationToken cancellationToken)
 		{
 			using IDbConnection connection = new SqlConnection(_dbConnectionSettings.DefaultConnection);
-			await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+			var commandDefinition = new CommandDefinition(storedProcedure, parameters, commandType: CommandType.StoredProcedure, cancellationToken: cancellationToken);
+			await connection.ExecuteAsync(commandDefinition);
 		}
 	}
 }

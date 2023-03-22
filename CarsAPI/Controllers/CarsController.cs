@@ -18,18 +18,18 @@ namespace CarsAPI.Controllers
 
 		[HttpGet]
 		[Authorize]
-		public async Task<ActionResult<IEnumerable<Car>>> GetAllCars()
+		public async Task<ActionResult<IEnumerable<Car>>> GetAllCars(CancellationToken cancellationToken)
 		{
-			var cars = await _carsData.GetCars();
+			var cars = await _carsData.GetCars(cancellationToken);
 			return Ok(cars);
 		}
 
 		[HttpGet("Range")]
 		[Authorize]
-		public async Task<ActionResult<IEnumerable<Car>>> GetLimitedCars(int startIndex, int endIndex)
+		public async Task<ActionResult<IEnumerable<Car>>> GetLimitedCars(int startIndex, int endIndex, CancellationToken cancellationToken)
 		{
 			var (offset, limit) = GetLimit(startIndex, endIndex);
-			var cars = await _carsData.GetLimitedCars(offset, limit);
+			var cars = await _carsData.GetLimitedCars(offset, limit, cancellationToken);
 			return Ok(cars);
 		}
 
@@ -42,9 +42,9 @@ namespace CarsAPI.Controllers
 
 		[HttpGet("{carId:int}")]
 		[Authorize]
-		public async Task<ActionResult<Car>> GetCar(int carId)
+		public async Task<ActionResult<Car>> GetCar(int carId, CancellationToken cancellationToken)
 		{
-			var car = await _carsData.GetCar(carId);
+			var car = await _carsData.GetCar(carId, cancellationToken);
 			if (car is null)
 			{
 				return NotFound();
@@ -54,25 +54,25 @@ namespace CarsAPI.Controllers
 
 		[HttpPost]
 		[Authorize]
-		public async Task<ActionResult<Car>> CreateCar(Car car)
+		public async Task<ActionResult<Car>> CreateCar(Car car, CancellationToken cancellationToken)
 		{
-			await _carsData.InsertCar(car);
+			await _carsData.InsertCar(car, cancellationToken);
 			return Ok();
 		}
 
 		[HttpPut]
 		[Authorize]
-		public async Task<ActionResult<Car>> UpdateCar(Car car)
+		public async Task<ActionResult<Car>> UpdateCar(Car car, CancellationToken cancellationToken)
 		{
-			await _carsData.UpdateCar(car);
+			await _carsData.UpdateCar(car, cancellationToken);
 			return Ok();
 		}
 
 		[HttpDelete("{carId:int}")]
 		[Authorize]
-		public async Task<ActionResult<Car>> DeleteCar(int carId)
+		public async Task<ActionResult<Car>> DeleteCar(int carId, CancellationToken cancellationToken)
 		{
-			await _carsData.DeleteCar(carId);
+			await _carsData.DeleteCar(carId, cancellationToken);
 			return Ok();
 		}
 	}

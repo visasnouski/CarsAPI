@@ -4,16 +4,16 @@ namespace DataAccess.Data
 {
 	public interface ICarsData
 	{
-		Task<IEnumerable<Car>> GetCars();
+		Task<IEnumerable<Car>> GetCars(CancellationToken cancellationToken);
 
-		Task<Car?> GetCar(int id);
+		Task<Car?> GetCar(int id, CancellationToken cancellationToken);
 
-		Task InsertCar(Car car);
+		Task InsertCar(Car car, CancellationToken cancellationToken);
 
-		Task UpdateCar(Car car);
+		Task UpdateCar(Car car, CancellationToken cancellationToken);
 
-		Task DeleteCar(int id);
+		Task DeleteCar(int id, CancellationToken cancellationToken);
 
-		Task<IEnumerable<Car>> GetLimitedCars(int offset, int limit);
+		Task<IEnumerable<Car>> GetLimitedCars(int offset, int limit, CancellationToken cancellationToken);
 	}
 }

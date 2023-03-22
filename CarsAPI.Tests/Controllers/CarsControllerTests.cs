@@ -20,18 +20,18 @@ namespace CarsAPI.Tests.Controllers
 			var mocker = new AutoMocker();
 			var carsData = new Mock<ICarsData>();
 
-			carsData.Setup(x => x.GetLimitedCars(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new List<Car>()
+			carsData.Setup(x => x.GetLimitedCars(It.IsAny<int>(), It.IsAny<int>(), CancellationToken.None)).ReturnsAsync(new List<Car>()
 				{ new() { CarId = 1 }, new() { CarId = 2 } });
 			mocker.Use(carsData);
 			var target = mocker.CreateInstance<CarsController>();
 
 			// Act
 
-			await target.GetLimitedCars(2, 0);
+			await target.GetLimitedCars(2, 0, CancellationToken.None);
 
 			// Assert
 
-			carsData.Verify(x => x.GetLimitedCars(0, 2), Times.Once);
+			carsData.Verify(x => x.GetLimitedCars(0, 2, CancellationToken.None), Times.Once);
 		}
 
 		[TestMethod]
@@ -42,18 +42,18 @@ namespace CarsAPI.Tests.Controllers
 			var mocker = new AutoMocker();
 			var carsData = new Mock<ICarsData>();
 
-			carsData.Setup(x => x.GetLimitedCars(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new List<Car>()
+			carsData.Setup(x => x.GetLimitedCars(It.IsAny<int>(), It.IsAny<int>(), CancellationToken.None)).ReturnsAsync(new List<Car>()
 				{ new() { CarId = 1 }, new() { CarId = 2 } });
 			mocker.Use(carsData);
 			var target = mocker.CreateInstance<CarsController>();
 
 			// Act
 
-			await target.GetLimitedCars(0, 2);
+			await target.GetLimitedCars(0, 2, CancellationToken.None);
 
 			// Assert
 
-			carsData.Verify(x => x.GetLimitedCars(0, 2), Times.Once);
+			carsData.Verify(x => x.GetLimitedCars(0, 2, CancellationToken.None), Times.Once);
 		}
 
 		[TestMethod]
@@ -64,14 +64,14 @@ namespace CarsAPI.Tests.Controllers
 			var mocker = new AutoMocker();
 			var carsData = new Mock<ICarsData>();
 
-			carsData.Setup(x => x.GetLimitedCars(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new List<Car>()
+			carsData.Setup(x => x.GetLimitedCars(It.IsAny<int>(), It.IsAny<int>(), CancellationToken.None)).ReturnsAsync(new List<Car>()
 				{ new() { CarId = 1 }, new() { CarId = 2 } });
 			mocker.Use(carsData);
 			var target = mocker.CreateInstance<CarsController>();
 
 			// Act
 
-			var result = await target.GetLimitedCars(0, 2);
+			var result = await target.GetLimitedCars(0, 2, CancellationToken.None);
 
 			// Assert
 
@@ -88,13 +88,13 @@ namespace CarsAPI.Tests.Controllers
 			var mocker = new AutoMocker();
 			var carsData = new Mock<ICarsData>();
 
-			carsData.Setup(x => x.GetLimitedCars(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new List<Car>());
+			carsData.Setup(x => x.GetLimitedCars(It.IsAny<int>(), It.IsAny<int>(), CancellationToken.None)).ReturnsAsync(new List<Car>());
 			mocker.Use(carsData);
 			var target = mocker.CreateInstance<CarsController>();
 
 			// Act
 
-			var result = await target.GetLimitedCars(0, 2);
+			var result = await target.GetLimitedCars(0, 2, CancellationToken.None);
 
 			// Assert
 
@@ -111,13 +111,13 @@ namespace CarsAPI.Tests.Controllers
 			var mocker = new AutoMocker();
 			var carsData = new Mock<ICarsData>();
 
-			carsData.Setup(x => x.GetCar(It.IsAny<int>()));
+			carsData.Setup(x => x.GetCar(It.IsAny<int>(), CancellationToken.None));
 			mocker.Use(carsData);
 			var target = mocker.CreateInstance<CarsController>();
 
 			// Act
 
-			var result = await target.GetCar(0);
+			var result = await target.GetCar(0, CancellationToken.None);
 
 			// Assert
 
@@ -132,14 +132,14 @@ namespace CarsAPI.Tests.Controllers
 			var mocker = new AutoMocker();
 			var carsData = new Mock<ICarsData>();
 
-			carsData.Setup(x => x.GetCar(It.IsAny<int>()))
+			carsData.Setup(x => x.GetCar(It.IsAny<int>(), CancellationToken.None))
 				.ReturnsAsync(new Car() { CarId = 1 });
 			mocker.Use(carsData);
 			var target = mocker.CreateInstance<CarsController>();
 
 			// Act
 
-			var result = await target.GetCar(0);
+			var result = await target.GetCar(0, CancellationToken.None);
 
 			// Assert
 
@@ -163,12 +163,12 @@ namespace CarsAPI.Tests.Controllers
 
 			// Act
 
-			var result = await target.CreateCar(car);
+			var result = await target.CreateCar(car, CancellationToken.None);
 
 			// Assert
 
 			Assert.IsInstanceOfType(result.Result, typeof(OkResult));
-			carsData.Verify(x => x.InsertCar(car), Times.Once);
+			carsData.Verify(x => x.InsertCar(car, CancellationToken.None), Times.Once);
 		}
 
 		[TestMethod]
@@ -184,12 +184,12 @@ namespace CarsAPI.Tests.Controllers
 
 			// Act
 
-			var result = await target.DeleteCar(1);
+			var result = await target.DeleteCar(1, CancellationToken.None);
 
 			// Assert
 
 			Assert.IsInstanceOfType(result.Result, typeof(OkResult));
-			carsData.Verify(x => x.DeleteCar(1), Times.Once);
+			carsData.Verify(x => x.DeleteCar(1, CancellationToken.None), Times.Once);
 		}
 
 		[TestMethod]
@@ -207,12 +207,12 @@ namespace CarsAPI.Tests.Controllers
 
 			// Act
 
-			var result = await target.UpdateCar(car);
+			var result = await target.UpdateCar(car, CancellationToken.None);
 
 			// Assert
 
 			Assert.IsInstanceOfType(result.Result, typeof(OkResult));
-			carsData.Verify(x => x.UpdateCar(car), Times.Once);
+			carsData.Verify(x => x.UpdateCar(car, CancellationToken.None), Times.Once);
 		}
 
 		[TestMethod]
@@ -224,14 +224,14 @@ namespace CarsAPI.Tests.Controllers
 			var carsData = new Mock<ICarsData>();
 
 			var cars = new[] { new Car() { CarId = 1 }, new Car() { CarId = 2 } };
-			carsData.Setup(x => x.GetCars()).ReturnsAsync(cars);
+			carsData.Setup(x => x.GetCars(CancellationToken.None)).ReturnsAsync(cars);
 			mocker.Use(carsData);
 
 			var target = mocker.CreateInstance<CarsController>();
 
 			// Act
 
-			var result = await target.GetAllCars();
+			var result = await target.GetAllCars(CancellationToken.None);
 
 			// Assert
 
@@ -248,14 +248,14 @@ namespace CarsAPI.Tests.Controllers
 			var mocker = new AutoMocker();
 			var carsData = new Mock<ICarsData>();
 
-			carsData.Setup(x => x.GetCars()).ReturnsAsync(Array.Empty<Car>());
+			carsData.Setup(x => x.GetCars(CancellationToken.None)).ReturnsAsync(Array.Empty<Car>());
 			mocker.Use(carsData);
 
 			var target = mocker.CreateInstance<CarsController>();
 
 			// Act
 
-			var result = await target.GetAllCars();
+			var result = await target.GetAllCars(CancellationToken.None);
 
 			// Assert
 
