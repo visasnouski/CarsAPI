@@ -23,7 +23,7 @@ namespace CarsAPI.Middlewares
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError($"An error occurred while executing the request: {ex}");
+				_logger.LogError("An error occurred while executing the request: {ErrorMessage}", ex.Message);
 				await HandleExceptionAsync(httpContext, ex);
 			}
 		}
