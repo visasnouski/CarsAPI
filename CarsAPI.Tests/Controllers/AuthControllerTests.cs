@@ -42,14 +42,14 @@ namespace CarsAPI.Tests.Controllers
 
 			// Act
 
-			var result = await target.Register(userDto);
+			var result = await target.Register(userDto, CancellationToken.None);
 
 			// Assert
 
 			Assert.IsInstanceOfType(result.Result, typeof(OkResult));
 			userDataMock.Verify(x => x.InsertUser(It.Is<User>(user => user.PasswordHash == passwordHash
 																	  && user.PasswordSalt == passwordSalt
-																	  && user.UserName == "SomeUser")), Times.Once);
+																	  && user.UserName == "SomeUser"), CancellationToken.None), Times.Once);
 		}
 
 		[TestMethod]
@@ -73,7 +73,7 @@ namespace CarsAPI.Tests.Controllers
 
 			// Act
 
-			var result = await target.Login(userDto);
+			var result = await target.Login(userDto, CancellationToken.None);
 
 			// Assert
 
@@ -98,7 +98,7 @@ namespace CarsAPI.Tests.Controllers
 			var passwordHash = new byte[] { 1, 2 };
 			var passwordSalt = new byte[] { 9, 10 };
 
-			userDataMock.Setup(x => x.GetUser(userDto.UserName)).ReturnsAsync(new User
+			userDataMock.Setup(x => x.GetUser(userDto.UserName, CancellationToken.None)).ReturnsAsync(new User
 			{ UserName = "someUser", PasswordSalt = passwordSalt, PasswordHash = passwordHash });
 
 			mocker.Use(passwordManagerMock);
@@ -111,7 +111,7 @@ namespace CarsAPI.Tests.Controllers
 
 			// Act
 
-			var result = await target.Login(userDto);
+			var result = await target.Login(userDto, CancellationToken.None);
 
 			// Assert
 
@@ -137,7 +137,7 @@ namespace CarsAPI.Tests.Controllers
 			var passwordHash = new byte[] { 1, 2 };
 			var passwordSalt = new byte[] { 9, 10 };
 
-			userDataMock.Setup(x => x.GetUser(userDto.UserName)).ReturnsAsync(new User
+			userDataMock.Setup(x => x.GetUser(userDto.UserName, CancellationToken.None)).ReturnsAsync(new User
 			{ UserName = "SomeUser", PasswordSalt = passwordSalt, PasswordHash = passwordHash });
 
 			passwordManagerMock.Setup(x => x.VerifyPasswordHashAndSalt("SomePassword", passwordHash, passwordSalt))
@@ -154,7 +154,7 @@ namespace CarsAPI.Tests.Controllers
 
 			// Act
 
-			var result = await target.Login(userDto);
+			var result = await target.Login(userDto, CancellationToken.None);
 
 			// Assert
 
@@ -179,7 +179,7 @@ namespace CarsAPI.Tests.Controllers
 			var passwordHash = new byte[] { 1, 2 };
 			var passwordSalt = new byte[] { 9, 10 };
 
-			userDataMock.Setup(x => x.GetUser(userDto.UserName)).ReturnsAsync(new User
+			userDataMock.Setup(x => x.GetUser(userDto.UserName, CancellationToken.None)).ReturnsAsync(new User
 			{ UserName = "SomeUser", PasswordSalt = passwordSalt, PasswordHash = passwordHash });
 
 			passwordManagerMock.Setup(x => x.VerifyPasswordHashAndSalt("SomePassword", passwordHash, passwordSalt))
@@ -198,7 +198,7 @@ namespace CarsAPI.Tests.Controllers
 
 			// Act
 
-			var result = await target.Login(userDto);
+			var result = await target.Login(userDto, CancellationToken.None);
 
 			// Assert
 

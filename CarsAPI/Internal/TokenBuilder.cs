@@ -26,9 +26,7 @@ namespace CarsAPI.Internal
 			var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 			var token = new JwtSecurityToken(claims: claims, expires: _dateTimeFacade.CurrentDateTime.AddDays(1), signingCredentials: cred);
 
-			var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-			return jwt;
+			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
 	}
 }

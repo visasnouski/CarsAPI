@@ -11,12 +11,12 @@ namespace DataAccess.Data
 			_dbAccess = dbAccess ?? throw new ArgumentNullException(nameof(dbAccess));
 		}
 
-		public async Task<User?> GetUser(string userName)
+		public async Task<User?> GetUser(string userName, CancellationToken cancellationToken)
 		{
-			var result = await _dbAccess.LoadData<User, dynamic>("dbo.[spUsers_Get]", new { UserName = userName });
+			var result = await _dbAccess.LoadData<User, dynamic>("dbo.[spUsers_Get]", new { UserName = userName }, cancellationToken);
 			return result.FirstOrDefault();
 		}
 
-		public Task InsertUser(User user) => _dbAccess.SaveData("dbo.[spUsers_Insert]", user);
+		public Task InsertUser(User user, CancellationToken cancellationToken) => _dbAccess.SaveData("dbo.[spUsers_Insert]", user, cancellationToken);
 	}
 }

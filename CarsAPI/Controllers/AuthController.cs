@@ -29,22 +29,22 @@ namespace CarsAPI.Controllers
 
 		[HttpPost("register")]
 		[AllowAnonymous]
-		public async Task<ActionResult<User>> Register(UserDto request)
+		public async Task<ActionResult<User>> Register(UserDto request, CancellationToken cancellationToken)
 		{
             (byte[] passwordHash, byte[] passwordSalt) = _passwordManager.GeneratePasswordHashAndSalt(request.Password);
 
 			var user = new User
 			{ UserName = request.UserName, PasswordHash = passwordHash, PasswordSalt = passwordSalt };
-			await _userData.InsertUser(user);
+			await _userData.InsertUser(user, cancellationToken);
 
 			return Ok();
 		}
 
 		[HttpPost("login")]
 		[AllowAnonymous]
-		public async Task<ActionResult<string>> Login(UserDto request)
+		public async Task<ActionResult<string>> Login(UserDto request, CancellationToken cancellationToken)
 		{
-            var user = await _userData.GetUser(request.UserName);
+            var user = await _userData.GetUser(request.UserName, cancellationToken);
 
 			if (user?.UserName != request.UserName)
 			{
